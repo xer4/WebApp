@@ -109,4 +109,4 @@ Set-MpPreference -DisableRealtimeMonitoring $true
 #    $UpdateCleanupSuccessful = Select-String -Path $env:SystemRoot\Logs\CBS\DeepClean.log -Pattern 'Total size of superseded packages:' -Quiet
 #}
 
-SSHUTDOWN.EXE /r /f /t 0 /c 'Init....'
+#SSHUTDOWN.EXE /r /f /t 0 /c 'Init....'
