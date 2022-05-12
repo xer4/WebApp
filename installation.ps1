@@ -110,7 +110,7 @@ Clear-History
 Remove-Item (Get-PSReadlineOption).HistorySavePath -force
 
 # Install updates
-Wuauclt /detectnow
+cmd.exe /c Wuauclt /detectnow
 #$Updates = Start-WUScan -SearchCriteria "IsInstalled=0 AND IsHidden=0 AND IsAssigned=1"
 #Install-WUUpdates -Updates $Updates
 #$au = Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0"}
