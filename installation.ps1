@@ -110,14 +110,15 @@ Clear-History
 Remove-Item (Get-PSReadlineOption).HistorySavePath -force
 
 # Install updates
-$Updates = Start-WUScan -SearchCriteria "IsInstalled=0 AND IsHidden=0 AND IsAssigned=1"
-Install-WUUpdates -Updates $Updates
-$au = Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0"}
-Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #InstallUpdates -Arguments @{Updates = $au.Updates}
+Wuauclt /detectnow
+#$Updates = Start-WUScan -SearchCriteria "IsInstalled=0 AND IsHidden=0 AND IsAssigned=1"
+#Install-WUUpdates -Updates $Updates
+#$au = Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0"}
+#Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #InstallUpdates -Arguments @{Updates = $au.Updates}
 
-$UpdateCleanupSuccessful = $false
-if (Test-Path $env:SystemRoot\Logs\CBS\DeepClean.log) {
-    $UpdateCleanupSuccessful = Select-String -Path $env:SystemRoot\Logs\CBS\DeepClean.log -Pattern 'Total size of superseded packages:' -Quiet
-}
+#$UpdateCleanupSuccessful = $false
+#if (Test-Path $env:SystemRoot\Logs\CBS\DeepClean.log) {
+#    $UpdateCleanupSuccessful = Select-String -Path $env:SystemRoot\Logs\CBS\DeepClean.log -Pattern 'Total size of superseded packages:' -Quiet
+#}
 
 SHUTDOWN.EXE /r /f /t 0 /c 'Init....'
