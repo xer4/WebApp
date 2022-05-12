@@ -45,7 +45,7 @@ Start-Process -FilePath $installerPath -Args "/S" -Verb RunAs -Wait
 Remove-Item $installerPath
 
 # Download vulnerable web application 
-curl https://github.com/xer4/WebApp/raw/77efa004d492bbb9f62611366fc85806978f3c75/final.zip -o final.zip
+curl https://raw.githubusercontent.com/xer4/WebApp/main/final.zip -o final.zip
 set-alias sz "$env:ProgramFiles\7-Zip\7z.exe"
 sz x .\final.zip  -p7bDZ$bLX7bHW25o44SzHvBm2n#TBJY98@E7TgAzGBAZ$!N2 -aoa
 Remove-Item .\final.zip
