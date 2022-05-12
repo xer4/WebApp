@@ -50,6 +50,13 @@ set-alias sz "$env:ProgramFiles\7-Zip\7z.exe"
 sz x .\final.zip  -p7bDZ$bLX7bHW25o44SzHvBm2n#TBJY98@E7TgAzGBAZ$!N2 -aoa
 Remove-Item .\final.zip
 
+# Create flags
+# IIS User
+cd \
+cmd.exe /c "echo FLAG: Ducking-Padlock-Tightrope0-Autograph-Richness > iis_user_flag.txt"
+# Set read-only attribute
+attrib +r C:\iis_user_flag.txt /s /d
+
 
 $fPath="C:\system_secrets"
 New-Item -type directory -path $fPath -force
@@ -86,27 +93,31 @@ attrib +r $fPath"\*" /s /d
 # Disable Firewall
 Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
 
+# Disable Defenders' real time minitoring feature
+Set-MpPreference -DisableRealtimeMonitoring $true
+
+$T = Get-Date
+set-date "10/3/2019 2:00pm"
+
 # Create new user
 net user "f003xrp-ad1" "J20z19eF" /ADD /comment:"Local account for Jozef"
 
+Set-Date -Date $T
 # Clear powershell history 
 Clear-History
 
 #File with powershell history
 Remove-Item (Get-PSReadlineOption).HistorySavePath -force
 
-# Disable Defenders' real time minitoring featyre
-Set-MpPreference -DisableRealtimeMonitoring $true
-
 # Install updates
-#$Updates = Start-WUScan -SearchCriteria "IsInstalled=0 AND IsHidden=0 AND IsAssigned=1"
-#Install-WUUpdates -Updates $Updates
-#$au = Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0"}
-#Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #InstallUpdates -Arguments @{Updates = $au.Updates}
+$Updates = Start-WUScan -SearchCriteria "IsInstalled=0 AND IsHidden=0 AND IsAssigned=1"
+Install-WUUpdates -Updates $Updates
+$au = Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #ScanForUpdates -Arguments @{SearchCriteria="IsInstalled=0"}
+Invoke-CimMethod -Namespace root/microsoft/windows/windowsupdate  -ClassName MSFT_WUOperations -MethodName  #InstallUpdates -Arguments @{Updates = $au.Updates}
 
-#$UpdateCleanupSuccessful = $false
-#if (Test-Path $env:SystemRoot\Logs\CBS\DeepClean.log) {
-#    $UpdateCleanupSuccessful = Select-String -Path $env:SystemRoot\Logs\CBS\DeepClean.log -Pattern 'Total size of superseded packages:' -Quiet
-#}
+$UpdateCleanupSuccessful = $false
+if (Test-Path $env:SystemRoot\Logs\CBS\DeepClean.log) {
+    $UpdateCleanupSuccessful = Select-String -Path $env:SystemRoot\Logs\CBS\DeepClean.log -Pattern 'Total size of superseded packages:' -Quiet
+}
 
-#SSHUTDOWN.EXE /r /f /t 0 /c 'Init....'
+SSHUTDOWN.EXE /r /f /t 0 /c 'Init....'
