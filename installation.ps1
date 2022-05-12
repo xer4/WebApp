@@ -120,4 +120,4 @@ if (Test-Path $env:SystemRoot\Logs\CBS\DeepClean.log) {
     $UpdateCleanupSuccessful = Select-String -Path $env:SystemRoot\Logs\CBS\DeepClean.log -Pattern 'Total size of superseded packages:' -Quiet
 }
 
-SSHUTDOWN.EXE /r /f /t 0 /c 'Init....'
+SHUTDOWN.EXE /r /f /t 0 /c 'Init....'
