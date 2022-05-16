@@ -85,9 +85,9 @@ $existingAcl.SetAccessRule($rule)
 $existingAcl | Set-Acl -Path $fPath
 
 cd $fPath
-cmd.exe /c "echo FLAG: Disloyal-Snowplow-Cobalt-Wobbling-Concert2 > system_flag.txt"
-cmd.exe /c "echo That's not it, but you're almost there :) > hidden_flag.txt"
-cmd.exe /c "echo FLAG: Jam-Gibberish-Surround-Campfire6-Thrash > hidden_flag.txt:real_hidden_flag.txt"
+set-content -path system_flag.txt -Value "FLAG: Disloyal-Snowplow-Cobalt-Wobbling-Concert2"
+set-content -path hidden_flag.txt -Value "That's not it, but you're almost there :)"
+set-content -path hidden_flag.txt -Stream real_hidden_flag.txt -Value "FLAG: Jam-Gibberish-Surround-Campfire6-Thrash"
 
 attrib +r $fPath"\*" /s /d
 
