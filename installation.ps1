@@ -86,8 +86,9 @@ $existingAcl | Set-Acl -Path $fPath
 
 cd $fPath
 cmd.exe /c "echo FLAG: Disloyal-Snowplow-Cobalt-Wobbling-Concert2 > system_flag.txt"
-cmd.exe /c "echo FLAG: Jam-Gibberish-Surround-Campfire6-Thrash > hidden_flag.txt:real_hidden_flag.txt"
 cmd.exe /c "echo That's not it, but you're almost there :) > hidden_flag.txt"
+cmd.exe /c "echo FLAG: Jam-Gibberish-Surround-Campfire6-Thrash > hidden_flag.txt:real_hidden_flag.txt"
+
 attrib +r $fPath"\*" /s /d
 
 # Disable Firewall
